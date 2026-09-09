@@ -196,7 +196,7 @@ const contactPhoneHref = 'tel:+447394168872';
 
 function Nav() {
   const [open, setOpen] = useState(false);
-  const links = [['Services','#services'],['Common Areas','#common-areas'],['How I Help','#pathways'],['Tarot','#tarot'],['Workshops','#workshops'],['Retreats','#retreats'],['About','#about']];
+  const links = [['Services','#services'],['How I Help','#pathways'],['Workshops','#workshops'],['About','#about']];
   return <header className="nav-wrap">
     <div className="nav container">
       <a className="brand" href="#top" aria-label="Thought Reader home">
