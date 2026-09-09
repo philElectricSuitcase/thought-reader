@@ -73,6 +73,58 @@ const tarotOffers = [
   ['Tarot Workshops', 'Engaging group workshops for personal insight, teams, events and wellbeing programmes.']
 ];
 
+const pressArticles = [
+  {
+    publication: '9am Business',
+    category: 'Leadership',
+    title: 'Why regulated leaders make better decisions',
+    summary: 'Why calmness, clarity and self-awareness matter when the pressure is on.',
+    url: 'https://9ambusiness.co.uk/columnist/why-regulated-leaders-make-better-decisions/'
+  },
+  {
+    publication: '9am Business',
+    category: 'Tarot & Business',
+    title: 'Why tarot reading for business is the next big thing',
+    summary: 'Using cards as prompts for better questions, broader thinking and clearer decisions.',
+    url: 'https://9ambusiness.co.uk/exclusive/why-tarot-reading-for-business-is-the-next-big-thing/'
+  },
+  {
+    publication: 'The Guardian',
+    category: 'Press Coverage',
+    title: 'Phil Macleod coverage in The Guardian',
+    summary: 'Direct publication search results and coverage pages for articles and mentions.',
+    url: 'https://www.theguardian.com/search?q=Phil%20Macleod'
+  },
+  {
+    publication: 'Daily Mail (UK)',
+    category: 'Press Coverage',
+    title: 'Phil Macleod coverage in Daily Mail UK',
+    summary: 'Publication search results and features from Daily Mail UK.',
+    url: 'https://www.dailymail.com/home/search.html?query=phil+macleod&channel=home&page=1'
+  },
+  {
+    publication: 'Express',
+    category: 'Press Coverage',
+    title: 'Phil Macleod coverage in Express',
+    summary: 'Express newspaper search and source pages related to Phil Macleod.',
+    url: 'https://www.express.co.uk/search?s=Phil%20Macleod'
+  },
+  {
+    publication: 'Daily Mail Ireland',
+    category: 'Press Coverage',
+    title: 'Phil Macleod coverage in Daily Mail Ireland',
+    summary: 'Daily Mail Ireland pages and related search coverage links.',
+    url: 'https://www.dailymail.co.uk/news/ireland/index.html'
+  },
+  {
+    publication: 'Daily Mail US',
+    category: 'Press Coverage',
+    title: 'Phil Macleod coverage in Daily Mail US',
+    summary: 'US edition coverage pages and related source links.',
+    url: 'https://www.dailymail.co.uk/ushome/index.html'
+  }
+];
+
 const commonAreas = [
   {
     lead: 'I need to build',
@@ -162,6 +214,9 @@ function App(){
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitFeedback, setSubmitFeedback] = useState({ error: false, message: '' });
   const [openAreas, setOpenAreas] = useState({});
+  const [isPressModalOpen, setIsPressModalOpen] = useState(false);
+
+  const latestPressArticles = pressArticles.slice(0, 5);
 
   const emailjsPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || import.meta.env.REACT_APP_EMAILJS_PUBLIC_KEY;
   const emailjsServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || import.meta.env.REACT_APP_EMAILJS_SERVICE_ID;
@@ -289,15 +344,15 @@ function App(){
         <div className="container retreat-inner"><div><span className="eyebrow light">FULLY MASTER YOUR MIND</span><h2>Step away from the noise.<br/>Come back thinking differently.</h2><p>Immersive retreat experiences combining mindset, hypnotherapy, reflection, relaxation and practical personal-development work.</p></div><a className="button primary" href="https://www.thought-reader.co.uk/retreat" target="_blank" rel="noreferrer">Explore retreats <ArrowRight size={18}/></a></div>
       </section>
 
-      <section className="section articles">
-        <div className="container"><div className="section-heading row-heading"><div><span className="eyebrow">THINKING OUT LOUD</span><h2>Articles, ideas & practical tools.</h2></div><a className="text-link" href="https://9ambusiness.co.uk" target="_blank" rel="noreferrer">Read more articles <ArrowRight/></a></div>
+      <section className="section articles" id="blogs">
+        <div className="container"><div className="section-heading row-heading"><div><span className="eyebrow">THINKING OUT LOUD</span><h2>Articles, ideas & practical tools.</h2><p>Latest 5 are shown here. Open the full list to browse every publication source.</p></div><button type="button" className="button dark" onClick={()=>setIsPressModalOpen(true)}>View all articles <ArrowRight size={16}/></button></div>
           <div className="article-grid">
-            <article><span>LEADERSHIP</span><h3>Why regulated leaders make better decisions</h3><p>Why calmness, clarity and self-awareness matter when the pressure is on.</p><a href="https://9ambusiness.co.uk/columnist/why-regulated-leaders-make-better-decisions/" target="_blank" rel="noreferrer">Read article <ArrowRight/></a></article>
-            <article><span>TAROT & BUSINESS</span><h3>Why tarot reading for business is the next big thing</h3><p>Using cards as prompts for better questions, broader thinking and clearer decisions.</p><a href="https://9ambusiness.co.uk/exclusive/why-tarot-reading-for-business-is-the-next-big-thing/" target="_blank" rel="noreferrer">Read article <ArrowRight/></a></article>
-            <article><span>MINDSET</span><h3>Practical change starts with awareness</h3><p>How attention, language and state can change what happens next.</p><a href="#contact">Work with Phil <ArrowRight/></a></article>
+            {latestPressArticles.map((item)=><article key={`${item.publication}-${item.title}`}><span>{item.category.toUpperCase()}</span><h3>{item.title}</h3><p>{item.summary}</p><a href={item.url} target="_blank" rel="noreferrer">Read on {item.publication} <ArrowRight/></a></article>)}
           </div>
         </div>
       </section>
+
+      {isPressModalOpen ? <div className="press-modal-backdrop" role="dialog" aria-modal="true" aria-label="All published articles"><div className="press-modal"><div className="press-modal-head"><h3>All Published Articles & Press Links</h3><button type="button" onClick={()=>setIsPressModalOpen(false)} aria-label="Close articles list"><X size={18}/></button></div><div className="press-modal-list">{pressArticles.map((item)=><article className="press-modal-item" key={`modal-${item.publication}-${item.title}`}><span>{item.publication}</span><h4>{item.title}</h4><p>{item.summary}</p><a href={item.url} target="_blank" rel="noreferrer">Open source <ArrowRight size={15}/></a></article>)}</div></div></div> : null}
 
       <section className="faq section soft"><div className="container faq-grid"><div><span className="eyebrow">QUESTIONS</span><h2>A few things people usually want to know.</h2></div><div>{[
         ['Do I need to know which service I want?','No. Start with what you want to change or improve. Phil can help identify the most useful way to approach it.'],
