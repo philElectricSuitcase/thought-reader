@@ -124,6 +124,13 @@ const commonAreas = [
     accent: 'coral'
   },
   {
+    lead: 'I need support with',
+    title: 'DRIVING\nANXIETY',
+    help: 'Regain confidence behind the wheel with calm, practical hypnotherapy support. We\'ll work on the thought patterns and physical stress responses that can make driving feel overwhelming, so you can feel safer, steadier and more in control on the road.',
+    icon: Target,
+    accent: 'gold'
+  },
+  {
     lead: 'I\'m working through',
     title: 'A PERIOD\nOF GRIEF',
     help: '',
@@ -154,6 +161,7 @@ function Nav() {
 function App(){
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitFeedback, setSubmitFeedback] = useState({ error: false, message: '' });
+  const [openAreas, setOpenAreas] = useState({});
 
   const emailjsPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || import.meta.env.REACT_APP_EMAILJS_PUBLIC_KEY;
   const emailjsServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || import.meta.env.REACT_APP_EMAILJS_SERVICE_ID;
@@ -247,7 +255,7 @@ function App(){
       <section className="section" id="common-areas">
         <div className="container">
           <div className="section-heading"><span className="eyebrow">COMMON AREAS I HELP WITH</span><h2>Support tailored to what you are going through right now.</h2><p>Start with your situation. We can shape the sessions around what you most want to change, heal or strengthen.</p></div>
-          <div className="service-grid">{commonAreas.map(({lead,title,help,icon:Icon,accent})=><article className={`service-card ${accent}`} key={title}><div className="service-icon"><Icon/></div><span className="mini-label">{lead}</span><h3>{title.split('\n').map((line, idx)=><React.Fragment key={line}>{line}{idx < title.split('\n').length - 1 ? <br/> : null}</React.Fragment>)}</h3><p><strong>How Therapy Can Help</strong></p>{help ? <p>{help}</p> : null}<a href="#contact">Contact Us Now <ArrowRight size={16}/></a></article>)}</div>
+          <div className="service-grid">{commonAreas.map(({lead,title,help,icon:Icon,accent})=>{const isOpen = Boolean(openAreas[title]); return <article className={`service-card ${accent} ${isOpen ? 'is-open' : 'is-collapsed'}`} key={title}><button className="common-area-toggle" type="button" onClick={()=>setOpenAreas((prev)=>({...prev,[title]:!prev[title]}))} aria-expanded={isOpen}><div className="service-icon"><Icon/></div><span className="mini-label">{lead}</span><h3>{title.split('\n').map((line, idx)=>{const lines = title.split('\n'); return <React.Fragment key={`${title}-${line}-${idx}`}>{line}{idx < lines.length - 1 ? <br/> : null}</React.Fragment>;})}</h3><span className="common-area-toggle-label">{isOpen ? 'Hide details' : 'How Therapy Can Help'}<ChevronDown size={16} style={{transform:isOpen ? 'rotate(180deg)' : 'rotate(0deg)',transition:'transform 180ms ease'}}/></span></button>{isOpen ? <><p style={{marginTop:'16px'}}>{help || 'Support is tailored to your situation, pace and goals. Book a call to talk through what you need.'}</p><a href="#contact">Contact Us Now <ArrowRight size={16}/></a></> : null}</article>;})}</div>
         </div>
       </section>
 
