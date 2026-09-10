@@ -194,3 +194,76 @@
 		font-size: 17px;
 	}
 }
+
+/* Global orange accent layer */
+:root {
+	--accent-orange: #f47b20;
+	--accent-orange-deep: #c95c07;
+	--accent-orange-soft: #fff2e7;
+}
+
+::selection {
+	background: rgba(244, 123, 32, 0.22);
+	color: var(--ink);
+}
+
+.eyebrow,
+.kicker,
+.mini-label,
+.common-area-toggle-label {
+	color: var(--accent-orange);
+}
+
+.button.primary,
+.button.dark {
+	background: var(--accent-orange);
+	border-color: var(--accent-orange);
+	color: #fff;
+}
+
+.button.primary:hover,
+.button.dark:hover {
+	background: var(--accent-orange-deep);
+	border-color: var(--accent-orange-deep);
+}
+
+.button.ghost,
+.nav-cta {
+	border-color: var(--accent-orange);
+	color: var(--accent-orange);
+}
+
+.button.ghost:hover,
+.nav-cta:hover {
+	background: var(--accent-orange-soft);
+	color: var(--accent-orange-deep);
+}
+
+.hero-proof strong,
+.text-link,
+.path-card>a,
+.service-card a,
+.article-grid a,
+.press-modal-item a,
+.workshop-list strong,
+footer a:hover {
+	color: var(--accent-orange);
+}
+
+.icon-bubble,
+.service-icon,
+.dot.coral,
+.press-modal-item span {
+	background: var(--accent-orange-soft);
+	color: var(--accent-orange-deep);
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus-visible,
+a:focus-visible,
+.common-area-toggle:focus-visible {
+	outline: 2px solid var(--accent-orange);
+	outline-offset: 2px;
+}
