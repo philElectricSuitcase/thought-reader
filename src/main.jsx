@@ -285,7 +285,7 @@ function App(){
         <div className="hero-grid container">
           <div className="hero-copy">
             <div className="kicker"><Sparkles size={16}/> Over 20 years helping clients create meaningful, lasting change.</div>
-            <h1>Hypnotherapy tailored to you.<br/><em>The Thought Reader™ Method.</em></h1>
+            <h1>Change, tailored to you.<br/><em>The Thought Reader™ Method.</em></h1>
             <p className="hero-lead">For more than two decades, Phil has helped clients overcome personal challenges, change unhelpful patterns and perform at their best through hypnotherapy and the Thought Reader™ Method.</p>
             <p className="hero-lead">Work includes anxiety, stress, quitting smoking or vaping, confidence and public speaking, unwanted habits, fears and major life changes, with each session shaped around the individual rather than a one-size-fits-all technique.</p>
             <div className="hero-actions"><a className="button primary" href="#services">Explore how I can help <ArrowRight size={18}/></a><a className="button ghost" href="#contact">Talk to Phil</a></div>
