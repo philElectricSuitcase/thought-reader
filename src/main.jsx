@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import emailjs from '@emailjs/browser';
+import methodImage from './images/method.jpg';
+import profileImage from './images/profile.jpg';
 import {
   ArrowRight, Brain, BriefcaseBusiness, CalendarDays, Check, ChevronDown,
-  Compass, HeartPulse, Menu, MessageCircle, MoonStar, Quote, Sparkles,
+  Compass, HeartPulse, Menu, MessageCircle, MoonStar, Sparkles,
   Target, Users, X, Zap, BookOpen, Coffee, Layers3, Mail, Phone
 } from 'lucide-react';
 import './styles.css';
@@ -12,9 +14,9 @@ const services = [
   {
     icon: Brain,
     eyebrow: 'Hypnotherapy',
-    title: 'Hypnotherapy & Mindset',
-    copy: 'Practical, focused sessions designed to help you change unhelpful patterns, build confidence and feel more in control.',
-    bullets: ['Confidence & self-belief', 'Habits & unwanted patterns', 'Performance & mindset', 'Personal change'],
+    title: 'Hypnotherapy & the Thought Reader™ Method',
+    copy: 'Phil’s practical, person-centred method developed over 20+ years, tailored to your situation to help create meaningful and lasting change.',
+    bullets: ['Anxiety, stress & sleep', 'Confidence & public speaking', 'Habits, smoking & vaping', 'Fears, phobias & personal change'],
     accent: 'mint'
   },
   {
@@ -64,6 +66,15 @@ const pathways = [
   { title: 'I want to change something', text: 'Hypnotherapy, habits, confidence and personal change.', icon: Zap },
   { title: 'I need clearer thinking', text: 'Executive coaching, mindset and decision clarity.', icon: Target },
   { title: 'I want a different perspective', text: 'Tarot, mindfulness and reflective personal insight.', icon: Compass }
+];
+
+const popularReasons = [
+  { title: 'Anxiety & Stress', text: 'Calmer thinking, better regulation and less mental overload.', icon: MoonStar },
+  { title: 'Confidence', text: 'Stronger self-belief for everyday life and performance moments.', icon: Zap },
+  { title: 'Habits & Unwanted Patterns', text: 'Change repetitive behaviours that no longer serve you.', icon: Brain },
+  { title: 'Sleep', text: 'Switch off better, settle the nervous system and improve rest.', icon: MoonStar },
+  { title: 'Driving Anxiety', text: 'Feel steadier, safer and more in control behind the wheel.', icon: Target },
+  { title: 'Smoking & Vaping', text: 'Practical support to break dependence and stay in control.', icon: HeartPulse }
 ];
 
 const tarotOffers = [
@@ -273,9 +284,10 @@ function App(){
       <section className="hero section-dark">
         <div className="hero-grid container">
           <div className="hero-copy">
-            <div className="kicker"><Sparkles size={16}/> Change the way you think. Change what happens next.</div>
-            <h1>Your mind is powerful.<br/><em>Learn how to use it.</em></h1>
-            <p className="hero-lead">Hypnotherapy, mind-body techniques, executive coaching and reflective practices to help you feel calmer, think more clearly and create meaningful change.</p>
+            <div className="kicker"><Sparkles size={16}/> Over 20 years helping clients create meaningful, lasting change.</div>
+            <h1>Hypnotherapy tailored to you.<br/><em>The Thought Reader™ Method.</em></h1>
+            <p className="hero-lead">For more than two decades, Phil has helped clients overcome personal challenges, change unhelpful patterns and perform at their best through hypnotherapy and the Thought Reader™ Method.</p>
+            <p className="hero-lead">Work includes anxiety, stress, quitting smoking or vaping, confidence and public speaking, unwanted habits, fears and major life changes, with each session shaped around the individual rather than a one-size-fits-all technique.</p>
             <div className="hero-actions"><a className="button primary" href="#services">Explore how I can help <ArrowRight size={18}/></a><a className="button ghost" href="#contact">Talk to Phil</a></div>
             <div className="hero-proof"><div><strong>20+</strong><span>years' experience</span></div><div><strong>1:1</strong><span>private support</span></div><div><strong>UK</strong><span>online & in person</span></div></div>
           </div>
@@ -293,16 +305,32 @@ function App(){
 
       <section className="trust-strip"><div className="container trust-inner"><span>PRIVATE 1-TO-1</span><span>•</span><span>WORKSHOPS</span><span>•</span><span>RETREATS</span><span>•</span><span>CORPORATE TRAINING</span><span>•</span><span>PERSONAL DEVELOPMENT</span></div></section>
 
+      <section className="section" id="popular-reasons">
+        <div className="container">
+          <div className="section-heading"><span className="eyebrow">MOST POPULAR REASONS PEOPLE COME TO PHIL</span><h2>Broad support across the issues people actually face.</h2><p>From anxiety and confidence to habits, sleep and driving anxiety, the work is practical, tailored and focused on what changes your day-to-day life.</p></div>
+          <div className="path-grid">{popularReasons.map(({title,text,icon:Icon})=><a href="#contact" className="path-card" key={title}><span className="icon-bubble"><Icon/></span><div><h3>{title}</h3><p>{text}</p></div><ArrowRight/></a>)}</div>
+        </div>
+      </section>
+
+      <section className="section soft" id="thought-reader-method">
+        <div className="container">
+          <div className="method-grid">
+            <div className="section-heading narrow"><span className="eyebrow">THE THOUGHT READER METHOD</span><h2>The Thought Reader™ Method is Phil Macleod’s approach to personal change.</h2><p>Combining hypnotherapy, NLP, mindfulness, coaching and psychological techniques, it helps people change without making the process itself feel like another battle.</p><p><strong>At its heart is a simple philosophy: change does not have to be painful to be powerful.</strong> Phil’s published work repeatedly focuses on awareness, identity, perspective and creating change through better mental patterns rather than relying on willpower or pressure.</p></div>
+            <div className="method-image-wrap"><img src={methodImage} alt="Thought Reader Method session" className="method-image"/></div>
+          </div>
+        </div>
+      </section>
+
       <section className="section" id="pathways">
         <div className="container">
-          <div className="section-heading narrow"><span className="eyebrow">START WITH WHAT YOU NEED</span><h2>You don’t need to know which technique you need.</h2><p>Start with the change you want. We can work out the most useful approach from there.</p></div>
+          <div className="section-heading narrow"><span className="eyebrow">START WITH WHAT YOU NEED</span><h2>You don’t need to know which technique you need.</h2><p>With the Thought Reader™ Method, you start by visualising the change you want to make. From there, we design the most effective approach for you, drawing on the techniques within the framework to help turn that change into reality.</p></div>
           <div className="path-grid">{pathways.map(({title,text,icon:Icon})=><a href="#contact" className="path-card" key={title}><span className="icon-bubble"><Icon/></span><div><h3>{title}</h3><p>{text}</p></div><ArrowRight/></a>)}</div>
         </div>
       </section>
 
       <section className="section soft" id="services">
         <div className="container">
-          <div className="section-heading"><span className="eyebrow">WAYS TO WORK WITH PHIL</span><h2>Practical support for mind, performance and wellbeing.</h2><p>Different tools, one aim: helping you create enough space and control to think, feel and respond differently.</p></div>
+          <div className="section-heading"><span className="eyebrow">HYPNOTHERAPY & THE THOUGHT READER™ METHOD</span><h2>One expert approach, tailored across a wide range of issues.</h2><p>The Thought Reader™ Method combines hypnotherapy, mindset and behaviour-change tools developed through 20+ years of client work, then adapts them to your goals, pace and situation.</p></div>
           <div className="service-grid">{services.map(({icon:Icon,eyebrow,title,copy,bullets,accent})=><article className={`service-card ${accent}`} key={title}><div className="service-icon"><Icon/></div><span className="mini-label">{eyebrow}</span><h3>{title}</h3><p>{copy}</p><ul>{bullets.map(b=><li key={b}><Check size={15}/>{b}</li>)}</ul><a href="#contact">Find out more <ArrowRight size={16}/></a></article>)}</div>
         </div>
       </section>
@@ -316,8 +344,8 @@ function App(){
 
       <section className="split-section section-dark" id="about">
         <div className="container split-grid">
-          <div className="quote-panel"><Quote size={42}/><blockquote>“The cards have no power. Thinking creates the power that you can use.”</blockquote><span>PHIL MACLEOD</span></div>
-          <div className="about-copy"><span className="eyebrow light">ABOUT PHIL</span><h2>Not about telling you what to think. It’s about helping you think differently.</h2><p>I’ve spent more than two decades working with people in high-pressure, high-performance and deeply personal situations. My approach combines hypnotherapy, coaching, mindset tools, mindfulness and, where useful, reflective techniques such as tarot.</p><p>Some people come because they feel stuck. Others want to perform better. Some simply want to feel calmer. The technique matters less than creating the right conditions for change.</p><div className="checks"><span><Check/>Confidential and practical</span><span><Check/>No judgement or theatre</span><span><Check/>Focused on useful change</span></div><a className="text-link" href="#contact">Work with Phil <ArrowRight/></a></div>
+          <div className="quote-panel" style={{padding:'20px'}}><img src={profileImage} alt="Phil Macleod" style={{width:'100%',height:'100%',objectFit:'cover',borderRadius:'18px'}}/></div>
+          <div className="about-copy"><span className="eyebrow light">ABOUT PHIL</span><h2>Phil Macleod, founder of Thought Reader.</h2><p>Phil Macleod is the founder of Thought Reader and a UK-based clinical hypnotherapist with over 20 years’ experience helping people create meaningful, lasting change. Through his Thought Reader™ Method, Phil takes a practical, person-centred approach to issues including anxiety, stress, phobias, smoking and vaping, chronic pain, weight management and confidence.</p><p>He works with private clients, entrepreneurs and professionals, helping them change unhelpful patterns, develop effective coping techniques and feel more in control of how they think, feel and respond. Phil’s work has been featured in global publications and he is a regular media commentator on hypnotherapy, mindset, human behaviour and behavioural change.</p><div className="checks"><span><Check/>20+ years of client results</span><span><Check/>Tailored, person-centred support</span><span><Check/>Trusted by private clients and professionals</span></div><a className="text-link" href="#contact">Work with Phil <ArrowRight/></a></div>
         </div>
       </section>
 
