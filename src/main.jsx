@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import emailjs from '@emailjs/browser';
 import methodImage from './images/method.jpg';
@@ -224,8 +224,31 @@ function Nav() {
 function App(){
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitFeedback, setSubmitFeedback] = useState({ error: false, message: '' });
-  const [openAreas, setOpenAreas] = useState({});
+  const [selectedCommonArea, setSelectedCommonArea] = useState(null);
   const [isPressModalOpen, setIsPressModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!selectedCommonArea) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setSelectedCommonArea(null);
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [selectedCommonArea]);
+
+  const handleCommonAreaContact = () => {
+    setSelectedCommonArea(null);
+    window.requestAnimationFrame(() => {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  };
 
   const latestPressArticles = pressArticles.slice(0, 5);
 
@@ -236,6 +259,7 @@ function App(){
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     setSubmitFeedback({ error: false, message: '' });
+    const form = e.currentTarget;
 
     if (!emailjsPublicKey || !emailjsServiceId || !emailjsTemplateId) {
       setSubmitFeedback({
@@ -247,7 +271,7 @@ function App(){
 
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
     const templateParams = {
       first_name: formData.get('firstName'),
       last_name: formData.get('lastName'),
@@ -263,7 +287,7 @@ function App(){
         publicKey: emailjsPublicKey
       });
 
-      e.currentTarget.reset();
+      form.reset();
       setSubmitFeedback({
         error: false,
         message: 'Thanks. Your confidential enquiry has been sent.'
@@ -338,9 +362,11 @@ function App(){
       <section className="section" id="common-areas">
         <div className="container">
           <div className="section-heading"><span className="eyebrow">COMMON AREAS I HELP WITH</span><h2>Support tailored to what you are going through right now.</h2><p>Start with your situation. We can shape the sessions around what you most want to change, heal or strengthen.</p></div>
-          <div className="service-grid">{commonAreas.map(({lead,title,help,icon:Icon,accent})=>{const isOpen = Boolean(openAreas[title]); return <article className={`service-card ${accent} ${isOpen ? 'is-open' : 'is-collapsed'}`} key={title}><button className="common-area-toggle" type="button" onClick={()=>setOpenAreas((prev)=>({...prev,[title]:!prev[title]}))} aria-expanded={isOpen}><div className="service-icon"><Icon/></div><span className="mini-label">{lead}</span><h3>{title.split('\n').map((line, idx)=>{const lines = title.split('\n'); return <React.Fragment key={`${title}-${line}-${idx}`}>{line}{idx < lines.length - 1 ? <br/> : null}</React.Fragment>;})}</h3><span className="common-area-toggle-label">{isOpen ? 'Hide details' : 'How Therapy Can Help'}<ChevronDown size={16} style={{transform:isOpen ? 'rotate(180deg)' : 'rotate(0deg)',transition:'transform 180ms ease'}}/></span></button>{isOpen ? <><p style={{marginTop:'16px'}}>{help || 'Support is tailored to your situation, pace and goals. Book a call to talk through what you need.'}</p><a href="#contact">Contact Us Now <ArrowRight size={16}/></a></> : null}</article>;})}</div>
+          <div className="service-grid">{commonAreas.map(({lead,title,help,icon:Icon,accent})=><article className={`service-card ${accent} is-collapsed`} key={title}><button className="common-area-toggle" type="button" onClick={()=>setSelectedCommonArea({lead,title,help,icon:Icon})} aria-haspopup="dialog"><div className="service-icon"><Icon/></div><span className="mini-label">{lead}</span><h3>{title.split('\n').map((line, idx)=>{const lines = title.split('\n'); return <React.Fragment key={`${title}-${line}-${idx}`}>{line}{idx < lines.length - 1 ? <br/> : null}</React.Fragment>;})}</h3><span className="common-area-description">{help || 'Support tailored to your situation, pace and goals.'}</span><span className="common-area-toggle-label">Read more <ArrowRight size={16}/></span></button></article>)}</div>
         </div>
       </section>
+
+      {selectedCommonArea ? <div className="common-area-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="common-area-modal-title" onClick={()=>setSelectedCommonArea(null)}><article className="common-area-modal" onClick={(event)=>event.stopPropagation()}><div className="common-area-modal-head"><div><span className="eyebrow">{selectedCommonArea.lead}</span><h2 id="common-area-modal-title">{selectedCommonArea.title.replace('\n', ' ')}</h2></div><button type="button" onClick={()=>setSelectedCommonArea(null)} aria-label="Close details"><X size={20}/></button></div><div className="common-area-modal-body"><div className="common-area-modal-icon"><selectedCommonArea.icon/></div><p>{selectedCommonArea.help || 'Support is tailored to your situation, pace and goals. A confidential conversation can help you decide what kind of support would be most useful.'}</p><p>Sessions are practical, person-centred and shaped around what you want to change. You do not need to have the perfect explanation before getting in touch.</p></div><div className="common-area-modal-actions"><button type="button" className="button ghost" onClick={()=>setSelectedCommonArea(null)}>Close</button><button type="button" className="button primary" onClick={handleCommonAreaContact}>Contact Phil <ArrowRight size={18}/></button></div></article></div> : null}
 
       <section className="split-section section-dark" id="about">
         <div className="container split-grid">
@@ -388,6 +414,33 @@ function App(){
         ['Can sessions be online?','Yes. Sessions can be delivered online, with in-person work available depending on the service and location.'],
         ['Do you work with organisations?','Yes. Workshops, training and executive sessions can be tailored for organisations, professional teams and leadership groups.']
       ].map(([q,a])=><details key={q}><summary>{q}<ChevronDown/></summary><p>{a}</p></details>)}</div></div></section>
+
+      <section className="specialist-links section-dark">
+        <div className="container">
+          <div className="section-heading specialist-links-heading">
+            <span className="eyebrow light">EXPLORE THOUGHT READER</span>
+            <h2>Find the right space for what you need.</h2>
+            <p>Thought Reader brings together practical support, reflective work and immersive experiences. Explore the specialist sites below for more detail.</p>
+          </div>
+          <div className="specialist-links-grid">
+            <a className="specialist-link-card" href="https://medical.thought-reader.co.uk" target="_blank" rel="noreferrer">
+              <span className="specialist-link-icon"><HeartPulse/></span>
+              <span className="specialist-link-copy"><strong>Medical & wellbeing</strong><span>Explore hypnotherapy, mind-body pain management, anxiety support and practical tools for lasting change.</span></span>
+              <ArrowRight className="specialist-link-arrow"/>
+            </a>
+            <a className="specialist-link-card" href="https://tarot.thought-reader.co.uk" target="_blank" rel="noreferrer">
+              <span className="specialist-link-icon"><Layers3/></span>
+              <span className="specialist-link-copy"><strong>Tarot & mindfulness</strong><span>Use tarot as a thoughtful framework for reflection, better questions and a different perspective.</span></span>
+              <ArrowRight className="specialist-link-arrow"/>
+            </a>
+            <a className="specialist-link-card" href="https://retreats.thought-reader.co.uk" target="_blank" rel="noreferrer">
+              <span className="specialist-link-icon"><Compass/></span>
+              <span className="specialist-link-copy"><strong>Retreats</strong><span>Step away from the noise with immersive experiences designed to help you reset and think differently.</span></span>
+              <ArrowRight className="specialist-link-arrow"/>
+            </a>
+          </div>
+        </div>
+      </section>
 
       <section className="contact section-dark" id="contact"><div className="container contact-grid"><div><span className="eyebrow light">START A CONVERSATION</span><h2>What would you like to change?</h2><p>You don’t need the perfect explanation. Tell Phil what’s happening, what you’d like to be different, and take it from there.</p><div className="contact-points"><span><MessageCircle/>Confidential conversation</span><span><CalendarDays/>Online & in-person options</span><span><Coffee/>No-pressure first chat</span></div></div><form onSubmit={handleContactSubmit}><div className="field-row"><label>First name<input required name="firstName"/></label><label>Last name<input required name="lastName"/></label></div><label>Email<input required type="email" name="email"/></label><label>What can I help with?<select name="service"><option>Choose an area</option><option>Hypnotherapy & Mindset</option><option>Mind-Body Pain Management</option><option>Anxiety, Stress & Relaxation</option><option>Executive Mind Coaching</option><option>Tarot / Mindfulness</option><option>Workshops & Training</option><option>Retreats</option><option>Something else</option></select></label><label>Tell me a little about what you’d like to change<textarea rows="4" name="message"></textarea></label><button className="button primary" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending...' : 'Send a confidential enquiry'} <ArrowRight size={18}/></button>{submitFeedback.message ? <p role="status" aria-live="polite" style={{marginTop:'12px',color:submitFeedback.error ? '#ff8e72' : '#b8edcf'}}>{submitFeedback.message}</p> : null}</form></div></section>
     </main>
