@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import emailjs from '@emailjs/browser';
-import methodImage from './images/method.jpg';
-import profileImage from './images/profile.jpg';
+import methodImage from './images/method-web.jpg';
+import profileImage from './images/profile-web.jpg';
 import {
   ArrowRight, Brain, BriefcaseBusiness, CalendarDays, Check, ChevronDown,
   Compass, HeartPulse, Menu, MessageCircle, MoonStar, Sparkles,
@@ -200,7 +200,7 @@ const contactPhoneHref = 'tel:+447394168872';
 
 function Nav() {
   const [open, setOpen] = useState(false);
-  const links = [['Services','#services'],['How I Help','#pathways'],['Workshops','#workshops'],['About','#about']];
+  const links = [['How I Help','#pathways'],['Services','#services'],['Two Minutes','#two-minutes'],['About','#about']];
   return <header className="nav-wrap">
     <div className="nav container">
       <a className="brand" href="#top" aria-label="Thought Reader home">
@@ -329,19 +329,40 @@ function App(){
         </div>
       </section>
 
-      <section className="section soft" id="thought-reader-method">
-        <div className="container">
-          <div className="method-grid">
-            <div className="section-heading narrow"><span className="eyebrow">THE THOUGHT READER METHOD</span><h2>The Thought Reader™ Method is Phil Macleod’s approach to personal change.</h2><p>Combining hypnotherapy, NLP, mindfulness, coaching and psychological techniques, it helps people change without making the process itself feel like another battle.</p><p><strong>At its heart is a simple philosophy: change does not have to be painful to be powerful.</strong> Phil’s published work repeatedly focuses on awareness, identity, perspective and creating change through better mental patterns rather than relying on willpower or pressure.</p></div>
-            <div className="method-image-wrap"><img src={methodImage} alt="Thought Reader Method session" className="method-image"/></div>
-          </div>
-        </div>
-      </section>
-
       <section className="section" id="pathways">
         <div className="container">
           <div className="section-heading narrow"><span className="eyebrow">START WITH WHAT YOU NEED</span><h2>You don’t need to know which technique you need.</h2><p>With the Thought Reader™ Method, you start by visualising the change you want to make. From there, we design the most effective approach for you, drawing on the techniques within the framework to help turn that change into reality.</p></div>
           <div className="path-grid">{pathways.map(({title,text,icon:Icon})=><a href="#contact" className="path-card" key={title}><span className="icon-bubble"><Icon/></span><div><h3>{title}</h3><p>{text}</p></div><ArrowRight/></a>)}</div>
+        </div>
+      </section>
+
+      <section className="section soft" id="thought-reader-method">
+        <div className="container">
+          <div className="method-grid">
+            <div className="section-heading narrow"><span className="eyebrow">THE THOUGHT READER METHOD</span><h2>The Thought Reader™ Method is Phil Macleod’s approach to personal change.</h2><p>Combining hypnotherapy, NLP, mindfulness, coaching and psychological techniques, it helps people change without making the process itself feel like another battle.</p><p><strong>At its heart is a simple philosophy: change does not have to be painful to be powerful.</strong> Phil’s published work repeatedly focuses on awareness, identity, perspective and creating change through better mental patterns rather than relying on willpower or pressure.</p></div>
+            <div className="method-image-wrap"><img src={methodImage} alt="Phil Macleod sharing the Thought Reader Method" className="method-image" width="1600" height="1066" loading="lazy" decoding="async"/></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="two-minutes section-dark" id="two-minutes">
+        <div className="container two-minutes-grid">
+          <div className="two-minutes-copy">
+            <span className="eyebrow light">A WEEKDAY RESET FROM PHIL</span>
+            <h2>Two minutes.<br/><em>One meaningful shift.</em></h2>
+            <p>Two Minutes is a short mindfulness message delivered every weekday. Each email offers one clear thought and a simple practice to help you move towards your goals, change your focus, reduce anxiety and build a kinder relationship with yourself.</p>
+            <div className="two-minutes-points">
+              <span><CalendarDays/>Monday to Friday</span>
+              <span><Coffee/>Around two minutes to read</span>
+              <span><Mail/>Free to receive</span>
+            </div>
+            <a className="button primary" href="https://www.two-minutes.thought-reader.co.uk/" target="_blank" rel="noreferrer">Start my Two Minutes <ArrowRight size={18}/></a>
+          </div>
+          <div className="two-minutes-note" aria-label="Example Two Minutes thought">
+            <span className="mini-label">A TWO MINUTES THOUGHT</span>
+            <blockquote>“You do not have to solve the whole day right now. Choose the next kind thing, the next useful thing, or simply the next thing. Then begin there.”</blockquote>
+            <div><strong>Today’s practice</strong><p>Before your next task, take one slow breath and ask: what would make this feel one degree easier?</p></div>
+          </div>
         </div>
       </section>
 
@@ -363,7 +384,7 @@ function App(){
 
       <section className="split-section section-dark" id="about">
         <div className="container split-grid">
-          <div className="quote-panel" style={{padding:'20px'}}><img src={profileImage} alt="Phil Macleod" style={{width:'100%',height:'100%',objectFit:'cover',borderRadius:'18px'}}/></div>
+          <div className="quote-panel" style={{padding:'20px'}}><img src={profileImage} alt="Phil Macleod, founder of Thought Reader" width="1200" height="1800" loading="lazy" decoding="async" style={{width:'100%',height:'100%',objectFit:'cover',borderRadius:'18px'}}/></div>
           <div className="about-copy"><span className="eyebrow light">ABOUT PHIL</span><h2>Phil Macleod, founder of Thought Reader.</h2><p>Phil Macleod is the founder of Thought Reader and a UK-based clinical hypnotherapist with over 20 years’ experience helping people create meaningful, lasting change. Through his Thought Reader™ Method, Phil takes a practical, person-centred approach to issues including anxiety, stress, phobias, smoking and vaping, chronic pain, weight management and confidence.</p><p>He works with private clients, entrepreneurs and professionals, helping them change unhelpful patterns, develop effective coping techniques and feel more in control of how they think, feel and respond. Phil’s work has been featured in global publications and he is a regular media commentator on hypnotherapy, mindset, human behaviour and behavioural change.</p><div className="checks"><span><Check/>20+ years of client results</span><span><Check/>Tailored, person-centred support</span><span><Check/>Trusted by private clients and professionals</span></div><a className="text-link" href="#contact">Work with Phil <ArrowRight/></a></div>
         </div>
       </section>
