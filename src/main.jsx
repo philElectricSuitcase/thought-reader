@@ -77,13 +77,6 @@ const popularReasons = [
   { title: 'Smoking & Vaping', text: 'Practical support to break dependence and stay in control.', icon: HeartPulse }
 ];
 
-const tarotOffers = [
-  ['Personal Tarot Reading', 'A private reflective reading focused on your situation, choices and next steps.'],
-  ['Tarot for Mindfulness', 'Use tarot as a structured tool for reflection, awareness and personal growth.'],
-  ['1-to-1 Tarot Training', 'Learn Phil’s practical, non-predictive approach to reading the cards with confidence.'],
-  ['Tarot Workshops', 'Engaging group workshops for personal insight, teams, events and wellbeing programmes.']
-];
-
 const pressArticles = [
   {
     publication: '9am Business',
@@ -375,11 +368,8 @@ function App(){
         </div>
       </section>
 
-      <section className="section tarot-section" id="tarot">
-        <div className="container tarot-grid">
-          <div className="tarot-copy"><span className="eyebrow">TAROT, WITHOUT THE FORTUNE TELLING</span><h2>A different way to create clarity.</h2><p>Tarot can be used as a prompt for reflection rather than prediction. A card can interrupt habitual thinking, raise a new question and help you look at a situation from a different angle.</p><p>That makes it a surprisingly useful mindfulness, coaching and decision-making tool.</p><a className="button dark" href="#contact">Explore tarot sessions <ArrowRight size={18}/></a></div>
-          <div className="tarot-stack">{tarotOffers.map(([t,c],i)=><div className="tarot-offer" key={t}><span>{String(i+1).padStart(2,'0')}</span><div><h3>{t}</h3><p>{c}</p></div><ArrowRight/></div>)}</div>
-        </div>
+      <section className="retreat section-dark" id="tarot">
+        <div className="container retreat-inner"><div><span className="eyebrow light">TAROT, WITHOUT THE FORTUNE TELLING</span><h2>A different way<br/>to create clarity.</h2><p>Explore personal readings, mindfulness sessions, one-to-one training and workshops that use tarot as a reflective tool to ask better questions, gain fresh perspectives and create personal insight.</p></div><a className="button primary" href="https://tarot.thought-reader.co.uk" target="_blank" rel="noreferrer">Explore tarot <ArrowRight size={18}/></a></div>
       </section>
 
       <section className="section soft" id="workshops">
