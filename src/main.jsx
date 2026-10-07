@@ -421,10 +421,14 @@ function App(){
 
       <section className="faq section soft"><div className="container faq-grid"><div><span className="eyebrow">QUESTIONS</span><h2>A few things people usually want to know.</h2></div><div>{[
         ['Do I need to know which service I want?','No. Start with what you want to change or improve. Phil can help identify the most useful way to approach it.'],
-        ['Is tarot used to predict the future?','No. Phil uses tarot as a reflective and mindfulness tool — a way of creating questions, alternative perspectives and insight.'],
+        ['How effective can hypnotherapy be for me?',<>
+          <p>Surprisingly, many people come to see me as a last resort, after they feel they’ve tried everything else. It’s often only when they experience hypnotherapy for themselves that they realise just how powerful it can be. Hypnotherapy helps us work with the automatic thoughts, feelings and behaviours that can keep us stuck, opening up new perspectives and ways of responding.</p>
+          <p>I’ve spent more than 20 years developing my Thought Reader Method and have worked with hundreds of clients. I combine hypnotherapy, NLP, mindfulness, coaching and psychological techniques, tailoring my unique approach to you and focusing on what you want to change. My approach focuses on awareness, identity and perspective, helping you create more helpful patterns without making the process feel like another battle.</p>
+          <p>At the heart of my work is a simple philosophy: change doesn’t have to be painful to be powerful.</p>
+        </>],
         ['Can sessions be online?','Yes. Sessions can be delivered online, with in-person work available depending on the service and location.'],
         ['Do you work with organisations?','Yes. Workshops, training and executive sessions can be tailored for organisations, professional teams and leadership groups.']
-      ].map(([q,a])=><details key={q}><summary>{q}<ChevronDown/></summary><p>{a}</p></details>)}</div></div></section>
+      ].map(([q,a])=><details key={q}><summary>{q}<ChevronDown/></summary>{typeof a === 'string' ? <p>{a}</p> : a}</details>)}</div></div></section>
 
       <section className="specialist-links section-dark">
         <div className="container">
